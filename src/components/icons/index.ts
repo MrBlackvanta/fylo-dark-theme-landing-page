@@ -1,0 +1,14 @@
+export { default as BgCurvyDesktopSVG } from "./BgCurvyDesktopSVG";
+export { default as BgCurvyMobileSVG } from "./BgCurvyMobileSVG";
+export { default as FacebookSVG } from "./FacebookSVG";
+export { default as IconAccessAnywhereSVG } from "./IconAccessAnywhereSVG";
+export { default as IconAnyFileSVG } from "./IconAnyFileSVG";
+export { default as IconArrowSVG } from "./IconArrowSVG";
+export { default as IconCollaborationSVG } from "./IconCollaborationSVG";
+export { default as IconEmailSVG } from "./IconEmailSVG";
+export { default as IconLocationSVG } from "./IconLocationSVG";
+export { default as IconPhoneSVG } from "./IconPhoneSVG";
+export { default as IconSecuritySVG } from "./IconSecuritySVG";
+export { default as InstagramSVG } from "./InstagramSVG";
+export { default as LogoSVG } from "./LogoSVG";
+export { default as TwitterSVG } from "./TwitterSVG";
