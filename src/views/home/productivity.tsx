@@ -15,8 +15,6 @@ export default function Productivity() {
         width={image.width}
         height={image.height}
         sizes="(min-width: 1024px) 38.4rem, (min-width: 768px) 19rem, 100vw"
-        fetchPriority="high"
-        loading="eager"
         className="w-full max-w-120 px-1 lg:max-w-153.75"
       />
       <div className="space-y-4">
@@ -24,10 +22,7 @@ export default function Productivity() {
           {title}
         </h2>
         {descriptions.map((description) => (
-          <p
-            key={description}
-            className="font-open-sans text-body md:text-base md:leading-6"
-          >
+          <p key={description} className="text-body md:text-base md:leading-6">
             {description}
           </p>
         ))}

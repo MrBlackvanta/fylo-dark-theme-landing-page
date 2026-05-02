@@ -1,8 +1,8 @@
 import heroImage from "@/assets/images/illustration-intro.png";
 import productivityImage from "@/assets/images/illustration-stay-productive.png";
-import satishPatelImage from "@/assets/images/profile-1.jpg";
-import bruceMcKenzieImage from "@/assets/images/profile-2.jpg";
-import markBoydImage from "@/assets/images/profile-3.jpg";
+import satishPatelImage from "@/assets/images/profile-1.webp";
+import bruceMcKenzieImage from "@/assets/images/profile-2.webp";
+import markBoydImage from "@/assets/images/profile-3.webp";
 import {
   FacebookSVG,
   IconAccessAnywhereSVG,

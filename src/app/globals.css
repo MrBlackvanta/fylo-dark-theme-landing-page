@@ -15,8 +15,10 @@
   --font-open-sans: "Open Sans", sans-serif;
 
   --text-heading-md: 2.5rem;
+  --text-body-xs: 0.625rem;
 
   --shadow-btn: 2px 3px 6px rgba(0, 0, 0, 0.15925);
+  --shadow-card: 5px 5px 8px 4px rgba(56, 56, 56, 0.0991282);
 }
 
 @layer base {
@@ -26,6 +28,9 @@
   button,
   a {
     @apply focus-visible-ring;
+  }
+  p {
+    @apply font-open-sans;
   }
 }
 
