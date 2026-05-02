@@ -7,6 +7,7 @@
   --color-primary-dark-blue-4: hsl(219, 30%, 18%);
 
   --color-accent-cyan: hsl(176, 68%, 64%);
+  --color-accent-cyan-2: hsl(186, 61%, 72%);
   --color-accent-blue: hsl(198, 60%, 50%);
   --color-accent-light-red: hsl(0, 100%, 63%);
 
@@ -15,16 +16,27 @@
   --font-raleway: "Raleway", sans-serif;
   --font-open-sans: "Open Sans", sans-serif;
 
-  /* --text-display-sm: 2rem;
-  --text-display-lg: 3.5rem;
+  --text-heading-md: 2.5rem;
 
-  --shadow-card: 0px 32px 56px rgba(80, 0, 118, 0.1); */
+  --shadow-btn: 2px 3px 6px rgba(0, 0, 0, 0.15925);
 }
 
 @layer base {
   html {
-    @apply font-open-sans;
+    @apply font-raleway;
   }
+}
+
+@utility gradient-primary {
+  background: linear-gradient(
+    134.79deg,
+    var(--color-accent-cyan) -42.11%,
+    var(--color-accent-blue) 100%
+  );
+}
+
+@utility text-body {
+  @apply font-open-sans text-sm leading-5.25 font-normal md:text-xl md:leading-7.5;
 }
 
 @utility focus-visible-ring {
@@ -33,4 +45,17 @@
 
 @utility footer-link {
   @apply text-accent-blue focus-visible-ring rounded-xs font-bold;
+}
+
+@utility btn-primary {
+  @apply focus-visible-ring shadow-btn font-raleway gradient-primary relative isolate min-h-12 w-full max-w-60 cursor-pointer overflow-hidden rounded-3xl text-sm leading-4 font-bold text-white md:text-base;
+
+  &::before {
+    content: "";
+    @apply bg-accent-cyan-2 absolute inset-0 -z-1 rounded-3xl opacity-0 transition-opacity duration-300;
+  }
+
+  &:hover::before {
+    @apply opacity-100;
+  }
 }

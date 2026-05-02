@@ -42,7 +42,7 @@ export default function RootLayout({
       lang="en"
       className={`${raleway.variable} ${openSans.variable} antialiased`}
     >
-      <body className="bg-primary-dark-blue flex min-h-dvh w-full flex-col items-center justify-between">
+      <body className="bg-primary-dark-blue flex min-h-dvh w-full flex-col p-6 pb-0">
         <Header />
         {children}
         <Footer />

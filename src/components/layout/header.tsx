@@ -11,7 +11,7 @@ export default function Header() {
   const isActive = (route: string) => pathname === route;
 
   return (
-    <header className="font-raleway mb-12 flex items-center justify-between text-xs leading-none font-normal tracking-normal text-white md:mb-18.75 md:text-base">
+    <header className="mb-12 flex items-center justify-between text-xs leading-none font-normal text-white md:mb-18.75 md:text-base">
       <Link href="/">
         <LogoSVG className="w-full max-w-20 md:max-w-44" />
       </Link>
