@@ -29,15 +29,15 @@ import {
 export const navigation: linkData[] = [
   {
     name: "Features",
-    route: "/features",
+    route: "#",
   },
   {
     name: "Team",
-    route: "/team",
+    route: "#",
   },
   {
     name: "Sign In",
-    route: "/sign-in",
+    route: "#",
   },
 ];
 
@@ -97,6 +97,7 @@ export const productivity: productivityData = {
   },
   cta: {
     text: "See how Fylo works",
+    route: "#",
   },
 };
 

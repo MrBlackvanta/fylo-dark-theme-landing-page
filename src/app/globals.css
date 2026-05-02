@@ -11,8 +11,6 @@
   --color-accent-blue: hsl(198, 60%, 50%);
   --color-accent-light-red: hsl(0, 100%, 63%);
 
-  --color-neutral-white: hsl(0, 0%, 100%);
-
   --font-raleway: "Raleway", sans-serif;
   --font-open-sans: "Open Sans", sans-serif;
 
@@ -25,6 +23,10 @@
   html {
     @apply font-raleway;
   }
+  button,
+  a {
+    @apply focus-visible-ring;
+  }
 }
 
 @utility gradient-primary {
@@ -36,7 +38,7 @@
 }
 
 @utility text-body {
-  @apply font-open-sans text-sm leading-5.25 font-normal md:text-xl md:leading-7.5;
+  @apply font-open-sans text-sm leading-5.25 font-normal;
 }
 
 @utility focus-visible-ring {
@@ -44,11 +46,11 @@
 }
 
 @utility footer-link {
-  @apply text-accent-blue focus-visible-ring rounded-xs font-bold;
+  @apply text-accent-blue rounded-xs font-bold;
 }
 
 @utility btn-primary {
-  @apply focus-visible-ring shadow-btn font-raleway gradient-primary relative isolate min-h-12 w-full max-w-60 cursor-pointer overflow-hidden rounded-3xl text-sm leading-4 font-bold text-white md:text-base;
+  @apply shadow-btn font-raleway gradient-primary relative isolate min-h-12 w-full max-w-60 cursor-pointer overflow-hidden rounded-3xl text-sm leading-4 font-bold text-white md:text-base;
 
   &::before {
     content: "";
@@ -58,4 +60,8 @@
   &:hover::before {
     @apply opacity-100;
   }
+}
+
+@utility btn-link {
+  @apply font-open-sans text-accent-cyan flex w-fit items-center gap-2 border-b border-current pb-1.75 text-xs transition-colors duration-300 hover:text-white md:text-base;
 }

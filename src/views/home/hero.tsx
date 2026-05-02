@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Hero() {
   const { title, description, image, cta } = hero;
   return (
-    <section className="mx-auto flex max-w-180 flex-col items-center px-3 text-center font-bold text-white">
+    <section className="mx-auto flex max-w-180 flex-col items-center px-3 text-center font-bold">
       <Image
         src={image.src}
         alt=""
@@ -19,7 +19,7 @@ export default function Hero() {
       <h1 className="md:text-heading-md mt-8.25 text-2xl leading-9 md:mt-9 md:leading-15">
         {title}
       </h1>
-      <p className="text-body mt-3.75 mb-8 px-1 md:my-8 md:max-w-10/12">
+      <p className="text-body mx:px-0 mt-3.75 mb-8 px-4 md:my-8 md:max-w-11/12 md:text-xl md:leading-7.5">
         {description}
       </p>
       <button type="button" className="btn-primary">

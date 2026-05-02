@@ -22,6 +22,7 @@ export type productivityData = {
   image: image;
   cta: {
     text: string;
+    route: string;
   };
 };
 
