@@ -36,25 +36,25 @@
  *   - Existing TSX in src/components/icons is overwritten on each run.
  */
 
-import fs from 'node:fs';
-import path from 'node:path';
-import { spawnSync } from 'node:child_process';
+import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
 
 const ROOT = process.cwd();
-const OUT_DIR = path.join(ROOT, 'src', 'components', 'icons');
-const SCOPE_SCRIPT = path.join(ROOT, 'scripts', 'scope-svg-ids.mjs');
+const OUT_DIR = path.join(ROOT, "src", "components", "icons");
+const SCOPE_SCRIPT = path.join(ROOT, "scripts", "scope-svg-ids.mjs");
 
 const IGNORED_DIRS = new Set([
-  'node_modules',
-  '.next',
-  '.git',
-  '.turbo',
-  '.vercel',
-  '.cache',
-  'dist',
-  'build',
-  'out',
-  'coverage',
+  "node_modules",
+  ".next",
+  ".git",
+  ".turbo",
+  ".vercel",
+  ".cache",
+  "dist",
+  "build",
+  "out",
+  "coverage",
 ]);
 
 function* walkSvgs(dir) {
@@ -70,7 +70,7 @@ function* walkSvgs(dir) {
     if (full === OUT_DIR) continue;
     if (entry.isDirectory()) {
       yield* walkSvgs(full);
-    } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.svg')) {
+    } else if (entry.isFile() && entry.name.toLowerCase().endsWith(".svg")) {
       yield full;
     }
   }
@@ -78,38 +78,38 @@ function* walkSvgs(dir) {
 
 function pascalCase(name) {
   return name
-    .replace(/\.svg$/i, '')
+    .replace(/\.svg$/i, "")
     .split(/[^a-zA-Z0-9]+/)
     .filter(Boolean)
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase())
-    .join('');
+    .join("");
 }
 
 const SPECIAL_ATTR_MAP = {
-  class: 'className',
-  for: 'htmlFor',
-  'xlink:href': 'xlinkHref',
-  'xlink:title': 'xlinkTitle',
-  'xml:lang': 'xmlLang',
-  'xml:space': 'xmlSpace',
+  class: "className",
+  for: "htmlFor",
+  "xlink:href": "xlinkHref",
+  "xlink:title": "xlinkTitle",
+  "xml:lang": "xmlLang",
+  "xml:space": "xmlSpace",
 };
 
 function attrToJSX(name) {
   if (SPECIAL_ATTR_MAP[name]) return SPECIAL_ATTR_MAP[name];
   if (/^(data|aria)-/.test(name)) return name;
-  if (!name.includes('-')) return name;
+  if (!name.includes("-")) return name;
   return name.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 }
 
 function svgToJSX(source) {
   let body = source
-    .replace(/<\?xml[^?]*\?>/g, '')
-    .replace(/<!DOCTYPE[^>]*>/gi, '')
-    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<\?xml[^?]*\?>/g, "")
+    .replace(/<!DOCTYPE[^>]*>/gi, "")
+    .replace(/<!--[\s\S]*?-->/g, "")
     .trim();
 
   const openMatch = body.match(/<svg\b([\s\S]*?)>/);
-  if (!openMatch) throw new Error('no <svg> root tag found');
+  if (!openMatch) throw new Error("no <svg> root tag found");
 
   const attrRe = /([a-zA-Z_][a-zA-Z0-9_:-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
   const attrs = {};
@@ -123,6 +123,10 @@ function svgToJSX(source) {
   delete attrs.width;
   delete attrs.height;
 
+  for (const key of Object.keys(attrs)) {
+    if (key.startsWith("xmlns:")) delete attrs[key];
+  }
+
   if (!attrs.viewBox && w && h) {
     const wn = parseFloat(w);
     const hn = parseFloat(h);
@@ -131,11 +135,11 @@ function svgToJSX(source) {
     }
   }
 
-  if (!attrs.xmlns) attrs.xmlns = 'http://www.w3.org/2000/svg';
+  if (!attrs.xmlns) attrs.xmlns = "http://www.w3.org/2000/svg";
 
   const attrLines = Object.entries(attrs)
     .map(([k, v]) => `      ${attrToJSX(k)}="${v}"`)
-    .join('\n');
+    .join("\n");
 
   const newOpen = `<svg\n${attrLines}\n      {...props}\n    >`;
   body = body.replace(openMatch[0], newOpen);
@@ -145,7 +149,7 @@ function svgToJSX(source) {
     (_, ws, name, rest) => `${ws}${attrToJSX(name)}${rest}`,
   );
 
-  body = body.replace(/(\s)class(\s*=\s*("[^"]*"|'[^']*'))/g, '$1className$2');
+  body = body.replace(/(\s)class(\s*=\s*("[^"]*"|'[^']*'))/g, "$1className$2");
 
   return body;
 }
@@ -162,13 +166,13 @@ function buildComponent(componentName, jsxBody) {
 function regenerateIndex() {
   const files = fs
     .readdirSync(OUT_DIR)
-    .filter((f) => f.endsWith('.tsx'))
+    .filter((f) => f.endsWith(".tsx"))
     .sort();
   const lines = files.map((f) => {
-    const name = path.basename(f, '.tsx');
+    const name = path.basename(f, ".tsx");
     return `export { default as ${name} } from './${name}';`;
   });
-  return lines.join('\n') + '\n';
+  return lines.join("\n") + "\n";
 }
 
 function main() {
@@ -176,20 +180,20 @@ function main() {
 
   const svgs = [...walkSvgs(ROOT)];
   if (svgs.length === 0) {
-    console.log('No .svg files found.');
+    console.log("No .svg files found.");
     return;
   }
 
   const generated = [];
   for (const svgPath of svgs) {
     const baseName = path.basename(svgPath);
-    const componentName = pascalCase(baseName) + 'SVG';
+    const componentName = pascalCase(baseName) + "SVG";
     const outPath = path.join(OUT_DIR, `${componentName}.tsx`);
     const rel = path.relative(ROOT, svgPath);
 
     let source;
     try {
-      source = fs.readFileSync(svgPath, 'utf8');
+      source = fs.readFileSync(svgPath, "utf8");
     } catch (e) {
       console.error(`✗ ${rel} — read failed: ${e.message}`);
       continue;
@@ -208,19 +212,18 @@ function main() {
     console.log(`✓ ${rel} → src/components/icons/${componentName}.tsx`);
   }
 
-  fs.writeFileSync(path.join(OUT_DIR, 'index.ts'), regenerateIndex());
-  console.log('✓ src/components/icons/index.ts regenerated');
+  fs.writeFileSync(path.join(OUT_DIR, "index.ts"), regenerateIndex());
+  console.log("✓ src/components/icons/index.ts regenerated");
 
   if (generated.length === 0) return;
 
-  const result = spawnSync(
-    process.execPath,
-    [SCOPE_SCRIPT, ...generated],
-    { stdio: 'inherit', cwd: ROOT },
-  );
+  const result = spawnSync(process.execPath, [SCOPE_SCRIPT, ...generated], {
+    stdio: "inherit",
+    cwd: ROOT,
+  });
 
   if (result.status !== 0) {
-    console.error('✗ scope-svg-ids.mjs exited with non-zero status');
+    console.error("✗ scope-svg-ids.mjs exited with non-zero status");
     process.exit(result.status ?? 1);
   }
 }

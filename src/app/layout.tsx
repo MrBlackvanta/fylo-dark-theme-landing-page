@@ -1,6 +1,6 @@
-import Footer from "@/components/layout/footer";
+import { Footer, Header } from "@/components/layout";
 import type { Metadata, Viewport } from "next";
-import { Raleway, Open_Sans } from "next/font/google";
+import { Open_Sans, Raleway } from "next/font/google";
 import "./globals.css";
 
 const raleway = Raleway({
@@ -43,6 +43,7 @@ export default function RootLayout({
       className={`${raleway.variable} ${openSans.variable} antialiased`}
     >
       <body className="bg-primary-dark-blue flex min-h-dvh w-full flex-col items-center justify-between">
+        <Header />
         {children}
         <Footer />
       </body>
