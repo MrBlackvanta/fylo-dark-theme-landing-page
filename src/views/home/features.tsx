@@ -2,7 +2,7 @@ import { features } from "@/data";
 
 export default function Features() {
   return (
-    <section className="mx-auto max-w-218 md:mt-9.5 md:mb-4.25">
+    <section className="mx-auto mb-10 max-w-218 md:mt-9.5 md:mb-4.25">
       <ul className="grid grid-cols-1 gap-20 text-center text-white md:grid-cols-2">
         {features.map((feature) => (
           <li key={feature.title} className="flex flex-col items-center gap-2">
