@@ -5,17 +5,22 @@
   --color-primary-dark-blue-2: hsl(218, 28%, 13%);
   --color-primary-dark-blue-3: hsl(216, 53%, 9%);
   --color-primary-dark-blue-4: hsl(219, 30%, 18%);
+  --color-primary-dark-blue-5: hsl(243, 87%, 12%);
 
   --color-accent-cyan: hsl(176, 68%, 64%);
   --color-accent-cyan-2: hsl(186, 61%, 72%);
   --color-accent-blue: hsl(198, 60%, 50%);
   --color-accent-light-red: hsl(0, 100%, 63%);
 
+  --color-gray: hsl(0, 0%, 75%);
+
   --font-raleway: "Raleway", sans-serif;
   --font-open-sans: "Open Sans", sans-serif;
 
-  --text-heading-md: 2.5rem;
-  --text-body-xs: 0.625rem;
+  --text-heading-md: 2.5rem; /* 40px */
+  --text-heading-lg: 2rem; /* 32px */
+  --text-body-sm: 0.75rem; /* 12px */
+  --text-body-xs: 0.625rem; /* 10px */
 
   --shadow-btn: 2px 3px 6px rgba(0, 0, 0, 0.15925);
   --shadow-card: 5px 5px 8px 4px rgba(56, 56, 56, 0.0991282);

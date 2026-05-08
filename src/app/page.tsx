@@ -1,4 +1,10 @@
-import { Features, Hero, Productivity, Testimonials } from "@/views/home";
+import {
+  Features,
+  Hero,
+  Productivity,
+  Signup,
+  Testimonials,
+} from "@/views/home";
 
 export default function Home() {
   return (
@@ -7,6 +13,7 @@ export default function Home() {
       <Features />
       <Productivity />
       <Testimonials />
+      <Signup />
     </main>
   );
 }
