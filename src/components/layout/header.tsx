@@ -5,7 +5,7 @@ import { LogoSVG } from "../icons";
 
 export default function Header() {
   return (
-    <header className="header-blur sticky top-0 z-10 mb-12 flex items-center justify-between px-6 text-xs leading-none font-normal text-white md:text-base">
+    <header className="header-blur sticky top-0 z-10 mb-12 flex items-center justify-between px-6 text-xs leading-none font-normal text-white sm:px-20 md:text-base">
       <Link href="/">
         <LogoSVG className="w-full max-w-20 md:max-w-44" />
       </Link>
