@@ -1,39 +1,39 @@
 import { StaticImageData } from "next/image";
 import { SVGProps } from "react";
 
-export type heroData = {
+export type HeroData = {
   title: string;
   description: string;
-  image: image;
+  image: Image;
   cta: {
     text: string;
   };
 };
 
-export type featureData = {
+export type FeatureData = {
   title: string;
   description: string;
   icon: React.FC<SVGProps<SVGSVGElement>>;
 };
 
-export type productivityData = {
+export type ProductivityData = {
   title: string;
   descriptions: string[];
-  image: image;
+  image: Image;
   cta: {
     text: string;
     route: string;
   };
 };
 
-export type testimonialData = {
+export type TestimonialData = {
   name: string;
   title: string;
   description: string;
-  image: image;
+  image: Image;
 };
 
-export type signupData = {
+export type SignupData = {
   title: string;
   description: string;
   cta: {
@@ -41,26 +41,28 @@ export type signupData = {
   };
 };
 
-export type footerData = {
+export type FooterData = {
   logo: React.FC<SVGProps<SVGSVGElement>>;
-  information: information[];
-  navigation: linkData[][];
-  social: { icon: React.FC<SVGProps<SVGSVGElement>>; href: string }[];
+  information: Information[];
+  navigation: LinkData[][];
+  social: {
+    icon: React.FC<SVGProps<SVGSVGElement>>;
+    href: string;
+    ariaLabel: string;
+  }[];
 };
 
-export type linkData = {
+export type LinkData = {
   name: string;
   route: string;
 };
 
-type image = {
+type Image = {
   src: StaticImageData;
-  alt: string | null;
-  width: number;
-  height: number;
+  alt: string;
 };
 
-export type information = {
+export type Information = {
   value: string;
   icon: React.FC<SVGProps<SVGSVGElement>>;
   href?: string;

@@ -6,7 +6,6 @@ export default function InstagramSVG(props: React.SVGProps<SVGSVGElement>) {
       height={13}
       fill="none"
       viewBox="0 0 24 24"
-      aria-hidden="true"
       {...props}
     >
       <g fill="currentColor">

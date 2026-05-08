@@ -17,16 +17,16 @@ import {
   TwitterSVG,
 } from "@/components/icons";
 import {
-  featureData,
-  footerData,
-  heroData,
-  linkData,
-  productivityData,
-  signupData,
-  testimonialData,
+  FeatureData,
+  FooterData,
+  HeroData,
+  LinkData,
+  ProductivityData,
+  SignupData,
+  TestimonialData,
 } from "./data.types";
 
-export const navigation: linkData[] = [
+export const navigation: LinkData[] = [
   {
     name: "Features",
     route: "#",
@@ -41,22 +41,20 @@ export const navigation: linkData[] = [
   },
 ];
 
-export const hero: heroData = {
+export const hero: HeroData = {
   title: "All your files in one secure location, accessible anywhere.",
   description:
     "Fylo stores all your most important files in one secure location. Access them wherever you need, share and collaborate with friends family, and co-workers.",
   image: {
     src: heroImage,
-    alt: null,
-    width: 720,
-    height: 534,
+    alt: "",
   },
   cta: {
     text: "Get Started",
   },
 };
 
-export const features: featureData[] = [
+export const features: FeatureData[] = [
   {
     title: "Access your files, anywhere",
     description:
@@ -83,7 +81,7 @@ export const features: featureData[] = [
   },
 ];
 
-export const productivity: productivityData = {
+export const productivity: ProductivityData = {
   title: "Stay productive, wherever you are",
   descriptions: [
     "Never let location be an issue when accessing your files. Fylo has you covered for all of your file storage needs.",
@@ -91,9 +89,7 @@ export const productivity: productivityData = {
   ],
   image: {
     src: productivityImage,
-    alt: null,
-    width: 615,
-    height: 465,
+    alt: "",
   },
   cta: {
     text: "See how Fylo works",
@@ -101,7 +97,7 @@ export const productivity: productivityData = {
   },
 };
 
-export const testimonials: testimonialData[] = [
+export const testimonials: TestimonialData[] = [
   {
     name: "Satish Patel",
     title: "Founder & CEO, Huddle",
@@ -110,8 +106,6 @@ export const testimonials: testimonialData[] = [
     image: {
       src: satishPatelImage,
       alt: "Satish Patel",
-      width: 128,
-      height: 128,
     },
   },
   {
@@ -122,8 +116,6 @@ export const testimonials: testimonialData[] = [
     image: {
       src: bruceMcKenzieImage,
       alt: "Bruce McKenzie",
-      width: 128,
-      height: 128,
     },
   },
   {
@@ -134,13 +126,11 @@ export const testimonials: testimonialData[] = [
     image: {
       src: markBoydImage,
       alt: "Mark Boyd",
-      width: 128,
-      height: 128,
     },
   },
 ];
 
-export const signup: signupData = {
+export const signup: SignupData = {
   title: "Get early access today",
   description:
     "It only takes a minute to sign up and our free starter tier is extremely generous. If you have any questions, our support team would be happy to help you.",
@@ -149,7 +139,7 @@ export const signup: signupData = {
   },
 };
 
-export const footer: footerData = {
+export const footer: FooterData = {
   logo: LogoSVG,
   information: [
     {
@@ -206,14 +196,17 @@ export const footer: footerData = {
     {
       icon: FacebookSVG,
       href: "https://www.facebook.com",
+      ariaLabel: "Facebook",
     },
     {
       icon: TwitterSVG,
       href: "https://www.twitter.com",
+      ariaLabel: "Twitter",
     },
     {
       icon: InstagramSVG,
       href: "https://www.instagram.com",
+      ariaLabel: "Instagram",
     },
   ],
 };

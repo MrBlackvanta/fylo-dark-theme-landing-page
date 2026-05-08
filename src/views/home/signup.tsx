@@ -14,12 +14,10 @@ export default function Signup() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupFormValues>({
-    criteriaMode: "all",
-  });
+  } = useForm<SignupFormValues>();
 
-  function onSubmit(data: SignupFormValues) {
-    console.log(data);
+  function onSubmit() {
+    // TODO: wire up to a real submission endpoint
   }
 
   return (
@@ -33,9 +31,15 @@ export default function Signup() {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:grid-rows-[3rem] sm:gap-7.25"
+        noValidate
       >
         <div className="sm:col-span-2">
+          <label htmlFor="email" className="sr-only">
+            Email
+          </label>
           <input
+            id="email"
+            type="email"
             placeholder="email@example.com"
             className="placeholder:text-gray placeholder:text-body-xs text-primary-dark-blue-5 text-body-sm focus-visible-ring h-12 w-full rounded-full bg-white px-7.25"
             {...register("email", {
@@ -45,10 +49,14 @@ export default function Signup() {
                 message: "Error, please check your email",
               },
             })}
+            aria-invalid={!!errors.email}
+            aria-describedby="email-error"
           />
           <p
+            id="email-error"
+            aria-live="polite"
             className={cn(
-              "text-accent-light-red! text-body-xs mt-1.5 min-h-4.75 ps-7.25 text-start font-bold opacity-0",
+              "text-accent-light-red text-body-xs mt-1.5 min-h-4.75 ps-7.25 text-start font-bold opacity-0",
               {
                 "opacity-100": errors.email,
               },

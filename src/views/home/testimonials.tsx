@@ -15,32 +15,29 @@ export default function Testimonials() {
               <Image
                 src={bigQuote}
                 alt=""
-                aria-hidden="true"
-                width={55}
-                height={45}
                 className="absolute -top-5 left-0 -z-1 w-full max-w-8 lg:-top-12 lg:max-w-19.75"
               />
             )}
-            <p className="text-body-xs leading-4.5 md:text-sm md:leading-5.25">
-              {testimonial.description}
-            </p>
-            <figure className="mt-4.25 flex items-center gap-2 md:mt-6">
-              <Image
-                src={testimonial.image.src}
-                alt={testimonial.name}
-                width={testimonial.image.width}
-                height={testimonial.image.height}
-                className="size-6 rounded-full"
-              />
-              <figcaption className="font-open-sans grid gap-1">
-                <strong className="text-body-xs leading-3 tracking-tight text-white">
-                  {testimonial.name}
-                </strong>
-                <span className="text-[7px] leading-2.5">
-                  {testimonial.title}
-                </span>
-              </figcaption>
-            </figure>
+            <blockquote>
+              <p className="text-body-xs leading-4.5 md:text-sm md:leading-5.25">
+                {testimonial.description}
+              </p>
+              <footer className="mt-4.25 flex items-center gap-2 md:mt-6">
+                <Image
+                  src={testimonial.image.src}
+                  alt=""
+                  className="size-6 rounded-full"
+                />
+                <div className="font-open-sans grid gap-1">
+                  <span className="text-body-xs leading-3 font-bold tracking-tight text-white">
+                    {testimonial.name}
+                  </span>
+                  <span className="text-[7px] leading-2.5">
+                    {testimonial.title}
+                  </span>
+                </div>
+              </footer>
+            </blockquote>
           </li>
         ))}
       </ul>

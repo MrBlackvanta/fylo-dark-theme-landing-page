@@ -43,7 +43,7 @@ export default function RootLayout({
       lang="en"
       className={`${raleway.variable} ${openSans.variable} antialiased`}
     >
-      <body className="bg-primary-dark-blue-2 flex min-h-dvh w-full flex-col p-0 pt-6 text-white">
+      <body className="bg-primary-dark-blue-2 flex min-h-dvh w-full flex-col pt-6 text-white">
         <div className="bg-primary-dark-blue absolute inset-0 -z-1 h-6/12 sm:h-dvh lg:h-[139dvh]">
           <BgCurvyMobileSVG className="absolute bottom-0 left-0 -z-1 sm:hidden" />
           <BgCurvyDesktopSVG className="absolute bottom-0 left-0 -z-1 hidden sm:block" />

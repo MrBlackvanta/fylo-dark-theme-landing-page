@@ -7,19 +7,15 @@ export default function Hero() {
     <section className="mx-auto flex max-w-180 flex-col items-center px-3 text-center font-bold">
       <Image
         src={image.src}
-        alt=""
-        aria-hidden="true"
-        width={image.width}
-        height={image.height}
+        alt={image.alt}
         sizes="(min-width: 1024px) 45rem, (min-width: 768px) 19rem, 100vw"
-        fetchPriority="high"
-        loading="eager"
+        priority
         className="w-full max-w-120 px-1 lg:max-w-180"
       />
       <h1 className="md:text-heading-md mt-8.25 text-2xl leading-9 md:mt-9 md:leading-15">
         {title}
       </h1>
-      <p className="text-body mx:px-0 mt-3.75 mb-8 px-4 md:my-8 md:max-w-11/12 md:text-xl md:leading-7.5">
+      <p className="text-body mt-3.75 mb-8 px-4 md:my-8 md:max-w-11/12 md:px-0 md:text-xl md:leading-7.5">
         {description}
       </p>
       <button type="button" className="btn-primary">
