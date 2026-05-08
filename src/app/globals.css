@@ -79,18 +79,77 @@
 @keyframes reveal-up {
   from {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(4rem) scale(0.96);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reveal-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-parallax {
+  to {
+    transform: translateY(40px);
+  }
+}
+
+@keyframes header-blur {
+  from {
+    background-color: transparent;
+    backdrop-filter: blur(0);
+  }
+  to {
+    background-color: hsl(218 28% 13% / 0.7);
+    backdrop-filter: blur(16px);
   }
 }
 
 @utility reveal-up {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      animation: reveal-up linear both;
+      animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@utility reveal-from-left {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-from-left cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@utility reveal-from-right {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-from-right cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-timeline: view();
       animation-range: entry 0% cover 30%;
     }
@@ -101,7 +160,7 @@
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       & > * {
-        animation: reveal-up linear both;
+        animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
         animation-timeline: view();
       }
       & > *:nth-child(1) {
@@ -116,6 +175,39 @@
       & > *:nth-child(4) {
         animation-range: entry 24% cover 54%;
       }
+    }
+  }
+}
+
+@utility hero-parallax {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 400px;
+    }
+  }
+}
+
+@utility header-blur {
+  @apply pt-3;
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: scroll()) {
+      animation: header-blur linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 80px;
+    }
+  }
+}
+
+@utility card-lift {
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      translate 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    &:hover {
+      translate: 0 -0.25rem;
+      box-shadow: 8px 8px 16px 4px rgba(0, 0, 0, 0.25);
     }
   }
 }

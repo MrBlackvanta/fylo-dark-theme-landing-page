@@ -9,7 +9,7 @@ export default function Testimonials() {
         {testimonials.map((testimonial, index) => (
           <li
             key={testimonial.name}
-            className="bg-primary-dark-blue-4 shadow-card relative w-full max-w-70 rounded-sm px-5 py-6 md:max-w-90 md:pt-10"
+            className="card-lift bg-primary-dark-blue-4 shadow-card relative w-full max-w-70 rounded-sm px-5 py-6 md:max-w-90 md:pt-10"
           >
             {index === 0 && (
               <Image

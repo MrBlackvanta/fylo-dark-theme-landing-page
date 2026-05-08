@@ -7,14 +7,14 @@ export default function Productivity() {
   const { image, title, descriptions, cta } = productivity;
 
   return (
-    <section className="reveal-up mx-auto flex max-w-308.75 flex-col items-center gap-12 md:flex-row md:gap-14.25">
+    <section className="mx-auto flex max-w-308.75 flex-col items-center gap-12 md:flex-row md:gap-14.25">
       <Image
         src={image.src}
         alt={image.alt}
         sizes="(min-width: 1024px) 38.4rem, (min-width: 768px) 19rem, 100vw"
-        className="w-full max-w-120 px-1 lg:max-w-153.75"
+        className="reveal-up md:reveal-from-left w-full max-w-120 px-1 lg:max-w-153.75"
       />
-      <div className="space-y-4">
+      <div className="reveal-up md:reveal-from-right space-y-4">
         <h2 className="md:text-heading-md text-lg leading-6 font-bold md:mt-0.75 md:max-w-10/12 md:leading-12.5">
           {title}
         </h2>

@@ -10,7 +10,7 @@ export default function Hero() {
         alt={image.alt}
         sizes="(min-width: 1024px) 45rem, (min-width: 768px) 19rem, 100vw"
         priority
-        className="w-full max-w-120 px-1 lg:max-w-180"
+        className="hero-parallax w-full max-w-120 px-1 lg:max-w-180"
       />
       <h1 className="md:text-heading-md mt-8.25 text-2xl leading-9 md:mt-9 md:leading-15">
         {title}
