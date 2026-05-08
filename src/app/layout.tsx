@@ -2,7 +2,7 @@ import { Footer, Header } from "@/components/layout";
 import type { Metadata, Viewport } from "next";
 import { Open_Sans, Raleway } from "next/font/google";
 import "./globals.css";
-import { BgCurvyDesktopSVG } from "@/components/icons";
+import { BgCurvyDesktopSVG, BgCurvyMobileSVG } from "@/components/icons";
 
 const raleway = Raleway({
   variable: "--font-raleway",
@@ -43,9 +43,11 @@ export default function RootLayout({
       lang="en"
       className={`${raleway.variable} ${openSans.variable} antialiased`}
     >
-      <body className="bg-primary-dark-blue-2 flex min-h-dvh w-full flex-col p-6 pb-0 text-white">
-        <div className="bg-primary-dark-blue absolute inset-0 -z-1 h-[140dvh]"></div>
-        <BgCurvyDesktopSVG className="absolute top-[calc(100%-9rem)] left-0 -z-1" />
+      <body className="bg-primary-dark-blue-2 flex min-h-dvh w-full flex-col p-0 pt-6 text-white">
+        <div className="bg-primary-dark-blue absolute inset-0 -z-1 h-6/12 sm:h-dvh lg:h-[139dvh]">
+          <BgCurvyMobileSVG className="absolute bottom-0 left-0 -z-1 sm:hidden" />
+          <BgCurvyDesktopSVG className="absolute bottom-0 left-0 -z-1 hidden sm:block" />
+        </div>
         <Header />
         {children}
         <Footer />

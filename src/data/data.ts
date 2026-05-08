@@ -172,33 +172,33 @@ export const footer: footerData = {
     [
       {
         name: "About Us",
-        route: "/about-us",
+        route: "#",
       },
       {
         name: "Jobs",
-        route: "/jobs",
+        route: "#",
       },
       {
         name: "Press",
-        route: "/press",
+        route: "#",
       },
       {
         name: "Blog",
-        route: "/blog",
+        route: "#",
       },
     ],
     [
       {
         name: "Contact Us",
-        route: "/contact-us",
+        route: "#",
       },
       {
         name: "Terms",
-        route: "/terms",
+        route: "#",
       },
       {
         name: "Privacy",
-        route: "/privacy",
+        route: "#",
       },
     ],
   ],

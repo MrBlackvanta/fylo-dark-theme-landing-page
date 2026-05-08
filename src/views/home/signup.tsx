@@ -23,7 +23,7 @@ export default function Signup() {
   }
 
   return (
-    <section className="bg-primary-dark-blue shadow-card mx-auto w-full max-w-215.75 rounded-lg px-7 py-10 text-center">
+    <section className="bg-primary-dark-blue shadow-card mx-auto -mt-40 w-full max-w-215.75 translate-y-1/2 rounded-lg px-7 py-10 text-center sm:-mt-10">
       <h2 className="sm:text sm:text-heading-lg text-lg leading-6 font-bold sm:leading-12">
         {title}
       </h2>
@@ -32,7 +32,7 @@ export default function Signup() {
       </p>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:grid-rows-[3rem] sm:gap-7.25"
+        className="grid grid-cols-1 gap-5 sm:grid-cols-3 sm:grid-rows-[3rem] sm:gap-7.25"
       >
         <div className="sm:col-span-2">
           <input
@@ -48,7 +48,7 @@ export default function Signup() {
           />
           <p
             className={cn(
-              "text-accent-light-red! text-body-xs mt-1.5 ps-7.25 text-start font-bold opacity-0",
+              "text-accent-light-red! text-body-xs mt-1.5 min-h-4.75 ps-7.25 text-start font-bold opacity-0",
               {
                 "opacity-100": errors.email,
               },
