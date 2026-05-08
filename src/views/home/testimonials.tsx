@@ -5,7 +5,7 @@ import bigQuote from "@/assets/images/bg-quotes.png";
 export default function Testimonials() {
   return (
     <section className="mx-auto max-w-295">
-      <ul className="flex flex-wrap justify-center gap-6 md:gap-10">
+      <ul className="reveal-stagger flex flex-wrap justify-center gap-6 md:gap-10">
         {testimonials.map((testimonial, index) => (
           <li
             key={testimonial.name}

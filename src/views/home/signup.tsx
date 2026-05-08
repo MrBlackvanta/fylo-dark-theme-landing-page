@@ -21,7 +21,7 @@ export default function Signup() {
   }
 
   return (
-    <section className="bg-primary-dark-blue shadow-card mx-auto -mt-40 w-full max-w-215.75 translate-y-1/2 rounded-lg px-7 py-10 text-center sm:-mt-10">
+    <section className="reveal-up bg-primary-dark-blue shadow-card mx-auto -mt-40 w-full max-w-215.75 translate-y-1/2 rounded-lg px-7 py-10 text-center sm:-mt-10">
       <h2 className="sm:text sm:text-heading-lg text-lg leading-6 font-bold sm:leading-12">
         {title}
       </h2>

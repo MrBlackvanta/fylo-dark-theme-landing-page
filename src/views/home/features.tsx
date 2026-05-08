@@ -9,7 +9,7 @@ export default function Features() {
       <h2 id="features-heading" className="sr-only">
         Features
       </h2>
-      <ul className="grid grid-cols-1 gap-20 text-center md:grid-cols-2">
+      <ul className="reveal-stagger grid grid-cols-1 gap-20 text-center md:grid-cols-2">
         {features.map((feature) => (
           <li key={feature.title} className="flex flex-col items-center gap-2">
             <feature.icon

@@ -75,3 +75,47 @@
 @utility btn-link {
   @apply font-open-sans text-accent-cyan flex w-fit items-center gap-2 border-b border-current pb-1.75 text-xs transition-colors duration-300 hover:text-white md:text-base;
 }
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility reveal-up {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+
+@utility reveal-stagger {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      & > * {
+        animation: reveal-up linear both;
+        animation-timeline: view();
+      }
+      & > *:nth-child(1) {
+        animation-range: entry 0% cover 30%;
+      }
+      & > *:nth-child(2) {
+        animation-range: entry 8% cover 38%;
+      }
+      & > *:nth-child(3) {
+        animation-range: entry 16% cover 46%;
+      }
+      & > *:nth-child(4) {
+        animation-range: entry 24% cover 54%;
+      }
+    }
+  }
+}

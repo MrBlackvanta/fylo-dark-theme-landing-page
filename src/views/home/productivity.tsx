@@ -7,7 +7,7 @@ export default function Productivity() {
   const { image, title, descriptions, cta } = productivity;
 
   return (
-    <section className="mx-auto flex max-w-308.75 flex-col items-center gap-12 md:flex-row md:gap-14.25">
+    <section className="reveal-up mx-auto flex max-w-308.75 flex-col items-center gap-12 md:flex-row md:gap-14.25">
       <Image
         src={image.src}
         alt={image.alt}

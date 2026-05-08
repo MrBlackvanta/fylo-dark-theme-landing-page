@@ -27,62 +27,27 @@ This is a solution to the [Fylo Dark Theme Landing Page challenge on Frontend Me
 
 ### Built with
 
-- [Next.js 16](https://nextjs.org/) (App Router, React Compiler, Turbopack)
+- [Next.js 16](https://nextjs.org/)
 - [React 19](https://react.dev/)
 - TypeScript
-- [Tailwind CSS v4](https://tailwindcss.com/) (theme via `@theme`, type presets via `@utility`)
-- `next/font` for Work Sans (`display: swap`)
-- Native `<details>` / `<summary>` for the accordion — no JavaScript
-- Semantic HTML5 landmarks (`<main>`, `<section>`, `<footer>`) with a real `<ul>` for the question list
-- Mobile-first responsive layout, a single `sm:` breakpoint
-- Fully static output — pre-rendered at build time
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [React Hook Form](https://react-hook-form.com/)
 
 ### What I learned
 
-**`<details>` / `<summary>` is the accessible default for disclosure widgets.** No state, no JS, no `aria-expanded` to manage — the browser handles keyboard, focus, and screen-reader announcements for free. The work is mostly styling: hide the default marker (`marker:content-none`), wrap the question in a real `<h2>` inside `<summary>` so heading navigation still works, and mark the +/- icons `aria-hidden` because the expanded/collapsed state is already exposed by the element itself.
+**`priority` on `<Image>` is not the same as `fetchPriority="high"` + `loading="eager"`.** I started by setting both props manually on the hero, thinking that covered it. It didn't. The whole point of `priority` is that Next injects a `<link rel="preload" as="image">` into the document head, so the browser starts the LCP request before it finishes parsing the body. Manually setting `fetchPriority` and `loading` skips that preload — which is the actual win. Use `priority` for exactly one image (the LCP candidate), never below the fold.
 
-**Animating `height: auto` is now actually possible — but requires opting in.** Two pieces have to line up: `interpolate-size: allow-keywords` on `:root` (or `html`) tells the browser it's allowed to interpolate intrinsic size keywords like `auto`, and the transition has to target the `::details-content` pseudo-element rather than `<details>` itself:
+**Static-imported images already carry `width` and `height`.** I had typed natural dimensions into my data layer alongside each `import`, then passed them as props to `<Image>`. Both are duplicates: `import heroImage from "...png"` returns a `StaticImageData` object that already has `width`, `height`, `src`, and `blurDataURL` baked in at build time. When `src` is a static import, `<Image>` infers the dimensions for you — pass nothing but `src`, `alt`, `sizes`, and (for the LCP) `priority`. Two sources of truth turn into one.
 
-```css
-html { interpolate-size: allow-keywords; }
+**Tailwind silently drops typo'd variants.** I had `mx:px-0` and `mb:mb-2` in two files, where I meant `md:`. Both classes did nothing — Tailwind doesn't error on unknown variant prefixes, it just emits no rule. The class string looked correct in the source but never matched at runtime. When a responsive tweak doesn't apply, check the compiled CSS, not the JSX.
 
-details::details-content {
-  transition:
-    height 0.5s ease,
-    content-visibility 0.5s allow-discrete;
-}
-```
+**`<blockquote>` wraps the quote, attribution goes inside.** First pass I had the quote text in a `<p>`, sibling to a `<blockquote>` that contained the avatar and the author. That's backwards. The HTML spec says `<blockquote>` *is* the quote — the quoted content lives inside it. Attribution belongs inside, in a `<footer>`. And `<cite>` is for the title of a work ("The Two Towers"), not a person's name — for the author, a `<span>` is the safer choice.
 
-Without `interpolate-size`, `height: auto` snaps. Without `allow-discrete` on `content-visibility`, the content disappears instantly at the start of the close instead of fading with the height.
+**An `<a>` without `href` is not a link.** Wrapped every footer info row in `<a href={item.href}>`. The address row has no `href` in the data, so it rendered as `<a>` with a missing `href` attribute — invalid HTML, not focusable, not announced as a link. Fix is conditional rendering: only emit the `<a>` when `href` exists; otherwise render the row as a plain wrapper. Optional fields in the data need optional structure in the JSX.
 
-**`overflow: hidden` clips your focus ring.** I put `overflow-hidden` on the `<details>` to keep the animated content from leaking. That also clipped the focus outline on `<summary>` — only the bottom edge was visible because the summary sits flush at the top of its parent. The fix isn't to redesign the focus state; it's to scope the clipping to the element that actually needs clipping. Move `overflow: hidden` onto `::details-content` (the part that's animating), and the summary's outline can render freely:
+**`aria-label` belongs on the focusable element, not on the icon inside it.** I added `ariaLabel: "Facebook"` to the social link data and passed it to the `<item.icon>` SVG. Screen readers still announced the link as just "link" — accessible name is computed from the link's content, not from a buried attribute. The label has to live on the `<a>` itself, and the SVG inside should be `aria-hidden="true"` so it isn't read on top.
 
-```css
-/* on <details>: nothing */
-/* on the pseudo-element only: */
-[&::details-content]:overflow-hidden
-```
-
-Lesson: `overflow: hidden` clips _everything_ inside, including outlines that would extend past child borders. Apply it as locally as the design allows.
-
-**`viewport` is its own export in Next 14+.** I started with `themeColor` and viewport fields inside `metadata` and got a build warning pointing at `generate-viewport`. The fix is a separate `export const viewport: Viewport = { ... }` alongside `metadata`. Also: don't set `maximumScale: 1` or `userScalable: false` — they're shortcuts to losing accessibility points, because users who need to zoom can't.
-
-**Hydration mismatches aren't always your code.** First time I hit React's "tree hydrated but some attributes... didn't match" warning, the diff showed `data-atm-ext-installed="1.30.01"` on `<body>` — injected by a browser extension between the server response arriving and React hydrating. Verified in incognito (warning gone), confirmed it wasn't a code bug. The escape hatch when extensions stamp `<html>` or `<body>` is `suppressHydrationWarning` on that single element — but only after confirming the cause, never as a reflexive silencer.
-
-**Tailwind v4 type presets via `@utility`, with size tokens in `@theme`.** Lifting the brand display sizes into theme tokens (`--text-display-sm`, `--text-display-lg`) keeps `@utility display` free of magic values:
-
-```css
-@theme {
-  --text-display-sm: 2rem;
-  --text-display-lg: 3.5rem;
-}
-
-@utility display {
-  @apply text-display-sm sm:text-display-lg leading-none font-bold;
-}
-```
-
-Custom font-size tokens become first-class Tailwind utilities (`text-display-sm`), which means responsive variants compose correctly — something `@layer components` historically didn't do well.
+**`useId()` inside an SVG turns it into a client island.** Several icons in this challenge use internal `id="a"` for filters and clip-paths — render the same icon twice on a page and the IDs collide. The build-time script in `scripts/` rewrites those IDs through `useId()` so each render gets a unique prefix, but `useId` is a hook, so every patched file becomes `"use client"`. The alternative is a static per-file prefix (e.g. `bg-curvy-a`) that stays an RSC at the cost of "no two copies of this SVG on a page, ever." For this design I picked safety; for a stricter perf budget, the static-prefix path is the better trade.
 
 ## Author
 
