@@ -76,6 +76,17 @@
   @apply font-open-sans text-accent-cyan flex w-fit items-center gap-2 border-b border-current pb-1.75 text-xs transition-colors duration-300 hover:text-white md:text-base;
 }
 
+@-webkit-keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(4rem) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -87,10 +98,32 @@
   }
 }
 
+@-webkit-keyframes reveal-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes reveal-from-left {
   from {
     opacity: 0;
     transform: translateX(-4rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes reveal-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(4rem);
   }
   to {
     opacity: 1;
@@ -109,19 +142,40 @@
   }
 }
 
+@-webkit-keyframes hero-parallax {
+  to {
+    transform: translateY(40px);
+  }
+}
+
 @keyframes hero-parallax {
   to {
     transform: translateY(40px);
   }
 }
 
-@keyframes header-blur {
+@-webkit-keyframes header-blur {
   from {
     background-color: transparent;
+    -webkit-backdrop-filter: blur(0);
     backdrop-filter: blur(0);
   }
   to {
     background-color: hsl(218 28% 13% / 0.7);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+  }
+}
+
+@keyframes header-blur {
+  from {
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+  }
+  to {
+    background-color: hsl(218 28% 13% / 0.7);
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
   }
 }
@@ -129,6 +183,7 @@
 @utility reveal-up {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
+      -webkit-animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
       animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-timeline: view();
       animation-range: entry 0% cover 30%;
@@ -139,6 +194,7 @@
 @utility reveal-from-left {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
+      -webkit-animation: reveal-from-left cubic-bezier(0.16, 1, 0.3, 1) both;
       animation: reveal-from-left cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-timeline: view();
       animation-range: entry 0% cover 30%;
@@ -149,6 +205,7 @@
 @utility reveal-from-right {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
+      -webkit-animation: reveal-from-right cubic-bezier(0.16, 1, 0.3, 1) both;
       animation: reveal-from-right cubic-bezier(0.16, 1, 0.3, 1) both;
       animation-timeline: view();
       animation-range: entry 0% cover 30%;
@@ -160,6 +217,7 @@
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       & > * {
+        -webkit-animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
         animation: reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
         animation-timeline: view();
       }
@@ -182,6 +240,7 @@
 @utility hero-parallax {
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: scroll()) {
+      -webkit-animation: hero-parallax linear both;
       animation: hero-parallax linear both;
       animation-timeline: scroll(root);
       animation-range: 0 400px;
@@ -193,6 +252,7 @@
   @apply pt-3;
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: scroll()) {
+      -webkit-animation: header-blur linear both;
       animation: header-blur linear both;
       animation-timeline: scroll(root);
       animation-range: 0 80px;
