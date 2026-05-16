@@ -252,6 +252,8 @@
   @apply pt-3;
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: scroll()) {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
       -webkit-animation: header-blur linear both;
       animation: header-blur linear both;
       animation-timeline: scroll(root);
