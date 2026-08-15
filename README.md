@@ -21,7 +21,8 @@ This is a solution to the [Fylo Dark Theme Landing Page challenge on Frontend Me
 ### Links
 
 - Solution URL: [GitHub](https://github.com/MrBlackvanta/fylo-dark-theme-landing-page)
-- Live Site URL: [Netlify](https://vanta-fylo-dark-theme-landing-page.netlify.app)
+- Live Site URL: [Cloudflare](https://fylo-dark-theme-landing-page.abdelrhman-ahmed8881.workers.dev)
+- Mirror: [Netlify](https://vanta-fylo-dark-theme-landing-page.netlify.app)
 
 ## My process
 
