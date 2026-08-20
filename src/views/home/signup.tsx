@@ -17,12 +17,12 @@ export default function Signup() {
   } = useForm<SignupFormValues>();
 
   function onSubmit() {
-    // TODO: wire up to a real submission endpoint
+    // TODO: wire up to a real submission endpoint.
   }
 
   return (
     <section className="reveal-up bg-primary-dark-blue shadow-card mx-auto -mt-40 w-full max-w-215.75 translate-y-1/2 rounded-lg px-7 py-10 text-center sm:-mt-10">
-      <h2 className="sm:text sm:text-heading-lg text-lg leading-6 font-bold sm:leading-12">
+      <h2 className="sm:text-heading-lg text-lg leading-6 font-bold sm:leading-12">
         {title}
       </h2>
       <p className="text-body mt-4 mb-8 sm:mx-auto sm:mb-10 sm:w-9/11 sm:text-sm sm:leading-5.25">
