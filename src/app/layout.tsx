@@ -17,13 +17,44 @@ const openSans = Open_Sans({
   display: "swap",
 });
 
+const SITE_URL =
+  "https://fylo-dark-theme-landing-page.abdelrhman-ahmed8881.workers.dev";
+
+const name = "Fylo";
+const title = `${name} | Cloud storage`;
+const description =
+  "All your files in one secure location, accessible anywhere. Share and collaborate from any device.";
+
+const shareImage = {
+  url: "/opengraph-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Fylo, cloud storage that keeps every file in one secure location.",
+};
+
 export const metadata: Metadata = {
-  title: "Fylo Dark Theme Landing Page",
-  description:
-    "Frontend Mentor Fylo Dark Theme Landing Page challenge built with Next.js and TypeScript.",
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  alternates: { canonical: "/" },
   icons: {
     icon: [{ url: "/favicon.ico" }, { url: "/icon.png", type: "image/png" }],
     apple: [{ url: "/apple-icon.png" }],
+  },
+  openGraph: {
+    title,
+    description,
+    url: "/",
+    siteName: name,
+    locale: "en_US",
+    type: "website",
+    images: [shareImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [shareImage],
   },
 };
 
