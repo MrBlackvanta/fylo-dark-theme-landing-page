@@ -1,56 +1,60 @@
-# Frontend Mentor - Fylo Dark Theme Landing Page solution
+# Fylo dark theme landing page
 
-This is a solution to the [Fylo Dark Theme Landing Page challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/fylo-dark-theme-landing-page-5ca5f2d21e82137ec91a50fd). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
-
-## Table of contents
-
-- [Overview](#overview)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-- [Author](#author)
-
-## Overview
-
-### Screenshot
+My solution to the [Fylo dark theme landing page](https://www.frontendmentor.io/challenges/fylo-dark-theme-landing-page-5ca5f2d21e82137ec91a50fd)
+challenge on Frontend Mentor.
 
 ![](./screenshot.webp)
 
-### Links
+- Live: https://fylo-dark-theme-landing-page.abdelrhman-ahmed8881.workers.dev
+- Code: https://github.com/MrBlackvanta/fylo-dark-theme-landing-page
 
-- Solution URL: [GitHub](https://github.com/MrBlackvanta/fylo-dark-theme-landing-page)
-- Live Site URL: [Cloudflare](https://fylo-dark-theme-landing-page.abdelrhman-ahmed8881.workers.dev)
+## Built with
 
-## My process
+- Next.js 16
+- React 19 and TypeScript
+- Tailwind CSS v4
+- React Hook Form
 
-### Built with
+## Notes
 
-- [Next.js 16](https://nextjs.org/)
-- [React 19](https://react.dev/)
-- TypeScript
-- [Tailwind CSS v4](https://tailwindcss.com/)
-- [React Hook Form](https://react-hook-form.com/)
+A few things I got wrong first and fixed:
 
-### What I learned
+**`priority` isn't the same as `fetchPriority="high"` plus `loading="eager"`.** I set
+both by hand on the hero and thought that covered it. It doesn't. `priority` also
+injects a `<link rel="preload">` into the head, which is the part that actually helps,
+because the browser starts the request before it finishes parsing the body. One image
+per page, and only if it's the LCP.
 
-**`priority` on `<Image>` is not the same as `fetchPriority="high"` + `loading="eager"`.** I started by setting both props manually on the hero, thinking that covered it. It didn't. The whole point of `priority` is that Next injects a `<link rel="preload" as="image">` into the document head, so the browser starts the LCP request before it finishes parsing the body. Manually setting `fetchPriority` and `loading` skips that preload — which is the actual win. Use `priority` for exactly one image (the LCP candidate), never below the fold.
+**Static image imports already carry their dimensions.** I'd typed width and height into
+the data layer next to each import and passed them as props. `import img from "..."`
+returns an object that already has them, so `<Image>` infers them from `src`. Two
+sources of truth for no reason.
 
-**Static-imported images already carry `width` and `height`.** I had typed natural dimensions into my data layer alongside each `import`, then passed them as props to `<Image>`. Both are duplicates: `import heroImage from "...png"` returns a `StaticImageData` object that already has `width`, `height`, `src`, and `blurDataURL` baked in at build time. When `src` is a static import, `<Image>` infers the dimensions for you — pass nothing but `src`, `alt`, `sizes`, and (for the LCP) `priority`. Two sources of truth turn into one.
+**Tailwind ignores typo'd variants silently.** I had `mx:px-0` and `mb:mb-2` where I
+meant `md:`. No error, no rule emitted, class string looks fine in the source. Now when
+a responsive tweak doesn't take, I check the compiled CSS instead of re-reading the JSX.
 
-**Tailwind silently drops typo'd variants.** I had `mx:px-0` and `mb:mb-2` in two files, where I meant `md:`. Both classes did nothing — Tailwind doesn't error on unknown variant prefixes, it just emits no rule. The class string looked correct in the source but never matched at runtime. When a responsive tweak doesn't apply, check the compiled CSS, not the JSX.
+**`<blockquote>` is the quote.** I had the quote in a `<p>` next to a `<blockquote>`
+holding the avatar and name. Backwards. The quoted text goes inside, attribution goes
+inside it in a `<footer>`, and `<cite>` is for the title of a work, not a person, so the
+name is a plain `<span>`.
 
-**`<blockquote>` wraps the quote, attribution goes inside.** First pass I had the quote text in a `<p>`, sibling to a `<blockquote>` that contained the avatar and the author. That's backwards. The HTML spec says `<blockquote>` *is* the quote — the quoted content lives inside it. Attribution belongs inside, in a `<footer>`. And `<cite>` is for the title of a work ("The Two Towers"), not a person's name — for the author, a `<span>` is the safer choice.
+**An `<a>` without `href` isn't a link.** The footer address row has no href in the data,
+so it rendered as a bare `<a>`: not focusable, not announced. Optional data needs
+optional markup, so the row only becomes a link when there's something to link to.
 
-**An `<a>` without `href` is not a link.** Wrapped every footer info row in `<a href={item.href}>`. The address row has no `href` in the data, so it rendered as `<a>` with a missing `href` attribute — invalid HTML, not focusable, not announced as a link. Fix is conditional rendering: only emit the `<a>` when `href` exists; otherwise render the row as a plain wrapper. Optional fields in the data need optional structure in the JSX.
+**`aria-label` goes on the `<a>`, not the icon inside it.** I'd put it on the SVG and the
+links still announced as "link". The accessible name comes from the link's content. The
+SVG is `aria-hidden` now.
 
-**`aria-label` belongs on the focusable element, not on the icon inside it.** I added `ariaLabel: "Facebook"` to the social link data and passed it to the `<item.icon>` SVG. Screen readers still announced the link as just "link" — accessible name is computed from the link's content, not from a buried attribute. The label has to live on the `<a>` itself, and the SVG inside should be `aria-hidden="true"` so it isn't read on top.
-
-**`useId()` inside an SVG turns it into a client island.** Several icons in this challenge use internal `id="a"` for filters and clip-paths — render the same icon twice on a page and the IDs collide. The build-time script in `scripts/` rewrites those IDs through `useId()` so each render gets a unique prefix, but `useId` is a hook, so every patched file becomes `"use client"`. The alternative is a static per-file prefix (e.g. `bg-curvy-a`) that stays an RSC at the cost of "no two copies of this SVG on a page, ever." For this design I picked safety; for a stricter perf budget, the static-prefix path is the better trade.
+**`useId()` inside an SVG makes it a client component.** Several icons here use internal
+ids for filters and clip paths, which collide if the icon renders twice. Routing them
+through `useId` fixes that but `useId` is a hook, so every patched file becomes
+`"use client"`. The alternative is a hardcoded per-file prefix, which stays a server
+component but breaks if the icon is ever used twice on a page. I took the safe one here.
 
 ## Author
 
-- UpWork - [Abdelrhman Abdelaal](https://www.upwork.com/freelancers/mrblackvanta)
-- Frontend Mentor - [@MrBlackvanta](https://www.frontendmentor.io/profile/MrBlackvanta)
-- LinkedIn - [Abdelrhman Abdelaal](https://www.linkedin.com/in/abdelrhman-vanta/)
+- [LinkedIn](https://www.linkedin.com/in/abdelrhman-vanta/)
+- [UpWork](https://www.upwork.com/freelancers/mrblackvanta)
+- [Frontend Mentor](https://www.frontendmentor.io/profile/MrBlackvanta)
