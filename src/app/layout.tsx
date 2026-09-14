@@ -1,6 +1,7 @@
 import { Footer, Header } from "@/components/layout";
 import type { Metadata, Viewport } from "next";
 import { Open_Sans, Raleway } from "next/font/google";
+import { SITE_URL } from "@/app/site";
 import "./globals.css";
 import { BgCurvyDesktopSVG, BgCurvyMobileSVG } from "@/components/icons";
 
@@ -16,9 +17,6 @@ const openSans = Open_Sans({
   subsets: ["latin"],
   display: "swap",
 });
-
-const SITE_URL =
-  "https://fylo-dark-theme-landing-page.abdelrhman-ahmed8881.workers.dev";
 
 const name = "Fylo";
 const title = `${name} | Cloud storage`;
